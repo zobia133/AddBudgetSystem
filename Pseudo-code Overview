@@ -1,0 +1,74 @@
+# Pseudo-code Overview
+
+## Data Models
+
+- **Brand**
+  - id
+  - name
+
+- **Campaign**
+  - id
+  - name
+  - brand_id (references Brand)
+  - budget_id (references Budget)
+  - active (boolean)
+
+- **Budget**
+  - id
+  - amount
+  - period (e.g., daily, monthly)
+  - remaining_amount
+  - start_date
+  - end_date
+
+- **Spend**
+  - id
+  - campaign_id (references Campaign)
+  - amount
+  - timestamp
+
+- **Schedule (Daypart)**
+  - id
+  - campaign_id (references Campaign)
+  - start_time
+  - end_time
+  - days_of_week (e.g., [Mon, Tue, ...])
+
+---
+
+## Key Logic
+
+### 1. Tracking Spend
+
+- When a spend event occurs:
+  - Record a Spend entry for the campaign with amount and timestamp.
+  - Update the campaign's total spent amount for the current period.
+
+### 2. Budget Enforcement
+
+- Before a spend is committed:
+  - Retrieve the campaign's budget and remaining amount for the period.
+  - If (requested spend + already spent) > budget:
+    - Reject the spend or adjust it to fit within the remaining budget.
+    - Optionally, pause the campaign if overspending is attempted.
+  - Else:
+    - Allow the spend and update records.
+
+### 3. Dayparting Checks
+
+- Before activating a campaign or allowing spend:
+  - Retrieve the campaign's schedule(s).
+  - Check if the current time and day match any active schedule.
+  - If not within a scheduled window:
+    - Prevent spend or campaign activation.
+  - Else:
+    - Allow spend.
+
+### 4. Daily/Monthly Resets
+
+- On each period boundary (daily or monthly, via scheduled task):
+  - For each budget:
+    - Reset the remaining_amount to the defined amount.
+    - Optionally, archive or report the previous period's spend.
+  - For campaigns:
+    - Optionally, reactivate campaigns paused for budget reasons if new period has started.
