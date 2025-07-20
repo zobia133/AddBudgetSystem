@@ -1,0 +1,12 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Dayparts</h2>
+<a href="{% url 'daypart_add' %}">Add Daypart</a>
+<ul>
+    {% for daypart in object_list %}
+    <li>
+        <a href="{% url 'daypart_detail' daypart.pk %}">{{ daypart.days_of_week }}: {{ daypart.start_time }}-{{ daypart.end_time }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Campaign: {{ object.name }}</h2>
+<p>Budget: <a href="{% url 'budget_detail' object.budget.pk %}">#{{ object.budget.id }}</a></p>
+<p>Status: {% if object.is_active %} <b>Active</b> {% else %} <b>Paused</b> {% endif %}</p>
+<form method="post" action="{% url 'toggle_campaign_status' object.pk %}">{% csrf_token %}
+    <button type="submit">{% if object.is_active %}Pause{% else %}Activate{% endif %}</button>
+</form>
+{% endblock %}

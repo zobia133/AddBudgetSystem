@@ -1,0 +1,7 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Spend Event #{{ object.pk }}</h2>
+<p>Campaign: <a href="{% url 'campaign_detail' object.campaign.pk %}">{{ object.campaign.name }}</a></p>
+<p>Amount: {{ object.amount }}</p>
+<p>Timestamp: {{ object.timestamp }}</p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Spend Events</h2>
+<a href="{% url 'spendevent_add' %}">Add Spend Event</a>
+<ul>
+    {% for spendevent in object_list %}
+    <li>
+        <a href="{% url 'spendevent_detail' spendevent.pk %}">#{{ spendevent.pk }}: {{ spendevent.campaign.name }} - {{ spendevent.amount }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

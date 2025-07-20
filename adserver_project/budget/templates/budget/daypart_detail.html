@@ -1,0 +1,5 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Daypart: {{ object.days_of_week }} {{ object.start_time }}-{{ object.end_time }}</h2>
+<p>Budget: <a href="{% url 'budget_detail' object.budget.pk %}">#{{ object.budget.id }}</a></p>
+{% endblock %}

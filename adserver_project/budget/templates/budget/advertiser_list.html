@@ -1,0 +1,12 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Advertisers</h2>
+<a href="{% url 'advertiser_add' %}">Add Advertiser</a>
+<ul>
+    {% for advertiser in object_list %}
+    <li>
+        <a href="{% url 'advertiser_detail' advertiser.pk %}">{{ advertiser.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

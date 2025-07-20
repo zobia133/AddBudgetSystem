@@ -1,0 +1,30 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Budget #{{ object.id }} for {{ object.advertiser.name }}</h2>
+<ul>
+    <li>Daily Limit: {{ object.daily_limit }}</li>
+    <li>Monthly Limit: {{ object.monthly_limit }}</li>
+    <li>Daily Spend: {{ object.spend_to_date_daily }}</li>
+    <li>Monthly Spend: {{ object.spend_to_date_monthly }}</li>
+</ul>
+<h3>Campaigns:</h3>
+<ul>
+    {% for campaign in object.campaigns.all %}
+    <li>
+        <a href="{% url 'campaign_detail' campaign.pk %}">{{ campaign.name }}</a>
+    </li>
+    {% empty %}
+    <li>No Campaigns</li>
+    {% endfor %}
+</ul>
+<h3>Dayparts:</h3>
+<ul>
+    {% for daypart in object.dayparts.all %}
+    <li>
+        <a href="{% url 'daypart_detail' daypart.pk %}">{{ daypart.days_of_week }}: {{ daypart.start_time }}-{{ daypart.end_time }}</a>
+    </li>
+    {% empty %}
+    <li>No Dayparts</li>
+    {% endfor %}
+</ul>
+{% endblock %}

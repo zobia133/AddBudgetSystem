@@ -1,0 +1,13 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<h2>Campaigns</h2>
+<a href="{% url 'campaign_add' %}">Add Campaign</a>
+<ul>
+    {% for campaign in object_list %}
+    <li>
+        <a href="{% url 'campaign_detail' campaign.pk %}">{{ campaign.name }}</a>
+        {% if campaign.is_active %} <b>[Active]</b> {% else %} <b>[Paused]</b> {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

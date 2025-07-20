@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ad Budget System</title>
+     <link rel="stylesheet" href="{% static 'budget/styles.css' %}">
+</head>
+<body>
+    <h1>Ad Budget System</h1>
+    <nav>
+        <a href="{% url 'advertiser_list' %}">Advertisers</a> |
+        <a href="{% url 'budget_list' %}">Budgets</a> |
+        <a href="{% url 'campaign_list' %}">Campaigns</a> |
+        <a href="{% url 'daypart_list' %}">Dayparts</a> |
+        <a href="{% url 'spendevent_list' %}">Spend Events</a>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>
